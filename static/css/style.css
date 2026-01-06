@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #1f2937;
+    padding: 15px;
+}
+
+.navbar a {
+    color: #ffffff;
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-top: 0;
+    color: #111827;
+}
+
+button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1e40af;
+}
+
+a.button {
+    background-color: #16a34a;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: #15803d;
+}
+
+.task-item {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.delete {
+    color: red;
+    margin-left: 10px;
+}

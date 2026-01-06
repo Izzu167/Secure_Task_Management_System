@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 mb-5">
+    <div class="col-md-6 col-lg-5">
+        
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-header bg-success text-white text-center py-3 rounded-top-4">
+                <h4 class="mb-0 fw-bold">
+                    {% if request.session.lang == 'ms' %}Daftar Akaun Baru{% else %}Create Account{% endif %}
+                </h4>
+            </div>
+            
+            <div class="card-body p-4">
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-secondary text-uppercase">
+                            {% if field.label == 'Username' %}
+                                {% if request.session.lang == 'ms' %}Nama Pengguna{% else %}Username{% endif %}
+                            {% elif field.label == 'Password' %}
+                                {% if request.session.lang == 'ms' %}Kata Laluan{% else %}Password{% endif %}
+                            {% elif field.label == 'Password confirmation' %}
+                                {% if request.session.lang == 'ms' %}Sahkan Kata Laluan{% else %}Confirm Password{% endif %}
+                            {% else %}
+                                {{ field.label }}
+                            {% endif %}
+                        </label>
+                        
+                        <input type="{{ field.field.widget.input_type }}" 
+                               name="{{ field.name }}" 
+                               class="form-control {% if field.errors %}is-invalid{% endif %}"
+                               id="{{ field.id_for_label }}">
+                        
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback d-block">
+                                <strong>{{ error }}</strong>
+                            </div>
+                        {% endfor %}
+
+                        {% if field.help_text %}
+                            <small class="form-text text-muted fst-italic" style="font-size: 0.75rem;">
+                                {{ field.help_text|safe }}
+                            </small>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg fw-bold">
+                            {% if request.session.lang == 'ms' %}Daftar Sekarang{% else %}Register Now{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-footer text-center py-3 bg-light rounded-bottom-4">
+                <small>
+                    {% if request.session.lang == 'ms' %}
+                        Sudah ada akaun? <a href="{% url 'login_view' %}" class="fw-bold text-success text-decoration-none">Log Masuk</a>
+                    {% else %}
+                        Already have an account? <a href="{% url 'login_view' %}" class="fw-bold text-success text-decoration-none">Login Here</a>
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

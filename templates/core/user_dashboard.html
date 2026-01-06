@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center mt-5">
+        
+        {% if request.session.lang == 'ms' %}
+            <h1 class="display-4">Selamat Datang, {{ user.username }}!</h1>
+            <p class="lead">Ini adalah Papan Pemuka Pengguna anda.</p>
+        {% else %}
+            <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+            <p class="lead">This is your User Dashboard.</p>
+        {% endif %}
+        
+        <hr>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-4">
+                <div class="card bg-info text-white mb-3 shadow">
+                    <div class="card-body">
+                        
+                        {% if request.session.lang == 'ms' %}
+                            <h3>Tugasan Saya</h3>
+                            <p>Uruskan senarai tugasan harian anda di sini.</p>
+                            <a href="{% url 'task_list' %}" class="btn btn-light text-info fw-bold">Lihat Tugasan</a>
+                        {% else %}
+                            <h3>My Tasks</h3>
+                            <p>Manage your daily task list here.</p>
+                            <a href="{% url 'task_list' %}" class="btn btn-light text-info fw-bold">View Tasks</a>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

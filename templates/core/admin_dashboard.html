@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mt-4">
+        <div class="alert alert-danger">
+            <strong>ADMIN MODE:</strong> 
+            {% if request.session.lang == 'ms' %}
+                Anda mempunyai akses penuh ke seluruh sistem.
+            {% else %}
+                You have full access to the entire system.
+            {% endif %}
+        </div>
+        <h1>
+            {% if request.session.lang == 'ms' %}Papan Pemuka Admin{% else %}Admin Dashboard{% endif %}
+        </h1>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card bg-dark text-white shadow">
+            <div class="card-body">
+                <h3 class="card-title">
+                    {% if request.session.lang == 'ms' %}Log Audit{% else %}Audit Logs{% endif %}
+                </h3>
+                <p class="card-text">
+                    {% if request.session.lang == 'ms' %}
+                        Pantau aktiviti login dan keselamatan sistem.
+                    {% else %}
+                        Monitor login activity and system security.
+                    {% endif %}
+                </p>
+                <a href="{% url 'audit_log' %}" class="btn btn-light">
+                    {% if request.session.lang == 'ms' %}Lihat Log Aktiviti{% else %}View Activity Logs{% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card bg-primary text-white shadow">
+            <div class="card-body">
+                <h3 class="card-title">
+                    {% if request.session.lang == 'ms' %}Urus Semua Task{% else %}Manage All Tasks{% endif %}
+                </h3>
+                <p class="card-text">
+                    {% if request.session.lang == 'ms' %}
+                        Lihat dan sunting tugasan semua pengguna.
+                    {% else %}
+                        View and edit tasks for all users.
+                    {% endif %}
+                </p>
+                <a href="{% url 'task_list' %}" class="btn btn-light">
+                    {% if request.session.lang == 'ms' %}Urus Tasks{% else %}Manage Tasks{% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

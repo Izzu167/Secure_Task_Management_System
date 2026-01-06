@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<style>
+    /* HERO SECTION DENGAN PARALLAX */
+    .hero-section {
+        /* Gambar background */
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'); 
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Parallax Effect */
+        height: 90vh; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    }
+
+    /* KAD FEATURES (PREMIUM STYLE) */
+    .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Border halus */
+        border-radius: 15px;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.05); /* Lutsinar Gelap */
+        backdrop-filter: blur(10px); /* Efek kaca */
+    }
+    .feature-card:hover {
+        transform: translateY(-10px); 
+        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* VIDEO SECTION STYLE */
+    .video-wrapper {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: black;
+    }
+    
+    /* ICON TEKNOLOGI (Warna Cerah untuk Dark Mode) */
+    .tech-icon {
+        font-size: 2.5rem;
+        margin: 0 20px;
+        color: #adb5bd; /* Kelabu cerah */
+        transition: transform 0.3s, color 0.3s;
+        cursor: pointer;
+    }
+    .tech-icon:hover {
+        transform: scale(1.2);
+        color: #0dcaf0; /* Cyan glow bila hover */
+    }
+</style>
+
+<div class="hero-section mb-5">
+    <div class="container" data-aos="zoom-in" data-aos-duration="1200">
+        
+        {% if request.session.lang == 'ms' %}
+            <h1 class="hero-title mb-3">Selamat Datang Ke STMS</h1>
+            <p class="lead mb-4 fw-bold text-light fs-4">
+                Sistem Pengurusan Tugasan Paling Selamat & Efisien. <br>
+                <span class="text-info">Sulit. Diaudit. Dilindungi.</span>
+            </p>
+            <p class="mb-5 text-white-50">Dilengkapi Dengan Ciri Keselamatan Canggih: Audit Log, RBAC, Dan Enkripsi Data.</p>
+        {% else %}
+            <h1 class="hero-title mb-3">Welcome To STMS</h1>
+            <p class="lead mb-4 fw-bold text-light fs-4">
+                The Most Secure & Efficient Task Management System. <br>
+                <span class="text-info">Encrypted. Audited. Protected.</span>
+            </p>
+            <p class="mb-5 text-white-50">Equipped With Advanced Security Features: Audit Log, RBAC, And Data Encryption.</p>
+        {% endif %}
+        
+        <div class="d-flex justify-content-center gap-3">
+            {% if user.is_authenticated %}
+                <a href="{% url 'user_dashboard' %}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold shadow">
+                    {% if request.session.lang == 'ms' %}Pergi ke Dashboard 🚀{% else %}Go to Dashboard 🚀{% endif %}
+                </a>
+            {% else %}
+                <a href="{% url 'login_view' %}" class="btn btn-primary btn-lg px-4 py-3 rounded-pill fw-bold shadow">
+                    {% if request.session.lang == 'ms' %}Log Masuk 🔐{% else %}Login 🔐{% endif %}
+                </a>
+                <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill fw-bold">
+                    {% if request.session.lang == 'ms' %}Daftar Sekarang{% else %}Register Now{% endif %}
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="mt-5 animate__animated animate__bounce infinite">
+            <span style="font-size: 2rem; opacity: 0.7;">⬇️</span>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-card p-4 text-white text-center">
+                <div class="mb-3 display-4 text-info">🔒</div>
+                {% if request.session.lang == 'ms' %}
+                    <h2>Selamat & Terjamin</h2>
+                    <p class="text-white-50">Data anda dilindungi dengan standard keselamatan OWASP. Kami menggunakan teknik hashing terkini.</p>
+                {% else %}
+                    <h2>Secure & Safe</h2>
+                    <p class="text-white-50">Your data is protected with OWASP security standards. We use the latest hashing techniques.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-card p-4 text-white text-center">
+                <div class="mb-3 display-4 text-warning">📊</div>
+                {% if request.session.lang == 'ms' %}
+                    <h2>Pantauan Audit</h2>
+                    <p class="text-white-50">Admin boleh memantau setiap pergerakan keluar masuk pengguna melalui sistem Audit Log.</p>
+                {% else %}
+                    <h2>Audit Monitoring</h2>
+                    <p class="text-white-50">Admins can monitor every user login and activity through the comprehensive Audit Log system.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-card p-4 text-white text-center">
+                <div class="mb-3 display-4 text-success">✅</div>
+                {% if request.session.lang == 'ms' %}
+                    <h2>Pengurusan Tugas</h2>
+                    <p class="text-white-50">Urus tugasan harian anda dengan mudah. Tambah, sunting, dan padam tugasan.</p>
+                {% else %}
+                    <h2>Task Management</h2>
+                    <p class="text-white-50">Manage your daily tasks easily. Add, edit, and delete tasks with a user-friendly interface.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-5 mb-5" style="background: rgba(0,0,0,0.2);"> <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 text-white" data-aos="fade-right">
+                {% if request.session.lang == 'ms' %}
+                    <h2 class="fw-bold text-warning mb-3">Tonton Bagaimana Ia Berfungsi 🎥</h2>
+                    <p class="lead text-white-50">Lihat bagaimana STMS melindungi data anda sambil memudahkan kerja seharian.</p>
+                    <ul class="list-unstyled mt-4 text-white">
+                        <li class="mb-2">✅ Enkripsi Masa Nyata</li>
+                        <li class="mb-2">✅ Kawalan Akses (RBAC)</li>
+                        <li class="mb-2">✅ Antaramuka Mesra Pengguna</li>
+                    </ul>
+                {% else %}
+                    <h2 class="fw-bold text-warning mb-3">Watch How It Works 🎥</h2>
+                    <p class="lead text-white-50">See how STMS protects your data while keeping you productive. Simple, fast, and unbreakable.</p>
+                    <ul class="list-unstyled mt-4 text-white">
+                        <li class="mb-2">✅ Real-time Encryption</li>
+                        <li class="mb-2">✅ Role-Based Access Control (RBAC)</li>
+                        <li class="mb-2">✅ User Friendly Interface</li>
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="video-wrapper">
+                    <video width="100%" height="100%" controls style="object-fit: cover;">
+                        <source src="{% static 'videos/promo.mp4' %}" type="video/mp4">
+                        {% if request.session.lang == 'ms' %}
+                            Browser anda tidak menyokong tag video ini.
+                        {% else %}
+                            Your browser does not support the video tag.
+                        {% endif %}
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4 text-center">
+    <h4 class="fw-bold text-white mb-4" data-aos="fade-down">
+        {% if request.session.lang == 'ms' %}Dikuasakan Oleh{% else %}Powered By{% endif %}
+    </h4>
+    <div class="d-flex justify-content-center flex-wrap gap-4" data-aos="zoom-in">
+        <div class="tech-icon" title="Python">🐍</div>
+        <div class="tech-icon" title="Django">🇩</div>
+        <div class="tech-icon" title="Bootstrap">🅱️</div>
+        <div class="tech-icon" title="Security">🛡️</div>
+        <div class="tech-icon" title="SQLite">🗄️</div>
+    </div>
+</div>
+
+<script>
+  AOS.init();
+</script>
+
+{% endblock %}
